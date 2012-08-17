@@ -1,0 +1,34 @@
+<#import "../layout/defaultLayout.ftl.html" as layout> <@layout.myLayout
+"Ninja Ebean guestbook">
+
+<header class="jumbotron subhead">
+    <h1>Hi. This is a simple guestbook.</h1>
+    <p class="lead">I exemplify the usage
+    of the Ebeans Ninja module.</p>
+</header>
+
+<hr>
+
+    <h2>Make a new guestbook entry:</h2>
+
+    <form method="post" action="/post">
+        Email: 
+        <input type="text" name="email" /><br /> 
+        Content <input
+            type="text" name="content" /><br /> 
+            <input type="submit"
+            value="submit">
+
+    </form>
+
+    <h2>All previous entries:</h2>
+    
+    <#list guestBookEntries as guestBookEntry>
+       <h3>Entry</h3>
+       <p>
+           Email: ${guestBookEntry.email}<br/>
+           Content: ${guestBookEntry.content}   
+       </p>
+    </#list>
+
+</@layout.myLayout>
