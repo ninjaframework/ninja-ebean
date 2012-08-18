@@ -13,6 +13,12 @@ Ebean is a simple and powerful ORM tool.
 This plugin allows to use Ebean in any Ninja 
 application.
 
+More
+----
+
+ * Source: http://github.com/reyez/ninja
+ * Continuous integration: https://buildhive.cloudbees.com/job/reyez/job/ninja-ebean/
+
 Getting started
 ---------------
 Configuring the module for your application is quite easy. There
