@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2012 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package ninja.ebean;
 
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_DATASOURCE_DATABASE_DRIVER;
@@ -10,6 +26,10 @@ import static ninja.ebean.NinjaEbeanProperties.EBEAN_DATASOURCE_PASSWORD;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_DATASOURCE_USERNAME;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_GENERATE;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_RUN;
+import static ninja.ebean.NinjaEbeanProperties.EBEAN_MODELS;
+
+import java.util.List;
+
 import ninja.lifecycle.Dispose;
 import ninja.lifecycle.Start;
 import ninja.utils.NinjaProperties;
@@ -48,6 +68,8 @@ public class NinjaEbeanServerLifecycle {
 
         this.logger = logger;
         this.ninjaProperties = ninjaProperties;
+        
+        startServer();
 
     }
 
@@ -56,7 +78,6 @@ public class NinjaEbeanServerLifecycle {
      * your application.conf file and configures Ebean accordingly.
      * 
      */
-    @Start
     public void startServer(){
         logger.info("Starting Ebeans Module.");
 
@@ -113,6 +134,21 @@ public class NinjaEbeanServerLifecycle {
 
         
         serverConfig.addPackage("models");
+        
+        // add manually listed classes from the property
+        String [] manuallyListedModels = ninjaProperties.getStringArray(EBEAN_MODELS);
+        
+        for (String model : manuallyListedModels) {
+    
+            try {
+                
+                serverConfig.addClass(Class.forName(model));
+                
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(
+                        "Configuration error. Class not listed in " + EBEAN_MODELS + " not found: " + model);
+            }
+        }
 
         // create the EbeanServer instance
         ebeanServer = EbeanServerFactory.create(serverConfig);
