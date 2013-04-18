@@ -29,12 +29,11 @@ import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_RUN;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_MODELS;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import ninja.lifecycle.Dispose;
 import ninja.lifecycle.Start;
 import ninja.utils.NinjaProperties;
-
-import org.slf4j.Logger;
 
 import com.avaje.ebean.EbeanServer;
 import com.avaje.ebean.EbeanServerFactory;
@@ -70,7 +69,7 @@ public class NinjaEbeanServerLifecycle {
         this.ninjaProperties = ninjaProperties;
         
         startServer();
-
+        
     }
 
     /**
@@ -138,17 +137,21 @@ public class NinjaEbeanServerLifecycle {
         // add manually listed classes from the property
         String [] manuallyListedModels = ninjaProperties.getStringArray(EBEAN_MODELS);
         
-        for (String model : manuallyListedModels) {
+        if (manuallyListedModels != null) {
+        
+            for (String model : manuallyListedModels) {
     
-            try {
+                try {
                 
-                serverConfig.addClass(Class.forName(model));
+                    serverConfig.addClass(Class.forName(model));
                 
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(
-                        "Configuration error. Class not listed in " + EBEAN_MODELS + " not found: " + model);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(
+                            "Configuration error. Class not listed in " + EBEAN_MODELS + " not found: " + model);
+                }
             }
         }
+        
 
         // create the EbeanServer instance
         ebeanServer = EbeanServerFactory.create(serverConfig);

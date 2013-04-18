@@ -18,6 +18,7 @@ package ninja.ebean;
 
 import com.avaje.ebean.EbeanServer;
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
 /**
@@ -34,13 +35,14 @@ public class NinjaEbeanModule extends AbstractModule {
     @Override
     protected void configure() {
         
-        // binding is important as the NinjaEbeanServer handles the 
-        // lifecycle of Ebeans connections (dispose of connections)
-        bind(NinjaEbeanServerLifecycle.class).in(Singleton.class);
-        
-        //this is the provider geneating a nicely configured EbeanServer
-        bind(EbeanServer.class).toProvider(NinjaEbeanServerProvider.class);
-        
+        //nothing to bind...
+    }
+    
+    
+    @Provides
+    @Singleton
+    EbeanServer provideEbeanServer(NinjaEbeanServerLifecycle ninjaEbeanServerLifecycle) {
+        return ninjaEbeanServerLifecycle.getEbeanServer();
     }
 
 }
