@@ -22,7 +22,7 @@
 	<groupId>org.ninjaframework</groupId>
 	<artifactId>ninja-ebean</artifactId>
 	<packaging>pom</packaging>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>EBean parent module</name>
 	<url>http://www.ninjaframework.org</url>
 
