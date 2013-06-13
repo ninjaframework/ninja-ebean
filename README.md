@@ -16,7 +16,7 @@ application.
 More
 ----
 
- * Source: http://github.com/reyez/ninja
+ * Source: http://github.com/ninjaframework/ninja
  * Continuous integration: https://buildhive.cloudbees.com/job/reyez/job/ninja-ebean/
  
 
