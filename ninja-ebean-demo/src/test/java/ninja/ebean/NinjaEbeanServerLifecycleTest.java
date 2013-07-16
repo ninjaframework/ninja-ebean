@@ -97,30 +97,13 @@ public class NinjaEbeanServerLifecycleTest {
                     "ebean.models");
 
             // be nice and stop the server afterwards
-            ninjaEbeanServerLifecycle.stopServer();
+            //ninjaEbeanServerLifecycle.stopServer();
         } catch (Exception e) {
             // we are getting:
             //java.sql.SQLException: Trying to access the Connection Pool when it is shutting down
             //this exception is expected and ignored
             //and happens if startup and shutdown is too fast (what this test is).
         }
-    }
-
-    @Test
-    public void makeSureLifecycleAnnotationsAreCorrect() throws Exception {
-
-//        // test startup annotation
-//        Method method = NinjaEbeanServerLifecycle.class.getMethod("startServer");
-//        Annotation annotation = method.getAnnotation(Start.class);
-//
-//        assertNotNull(annotation);
-
-        // test stop annotation
-        Method method = NinjaEbeanServerLifecycle.class.getMethod("stopServer");
-        Annotation annotation = method.getAnnotation(Dispose.class);
-
-        assertNotNull(annotation);
-
     }
 
 }
