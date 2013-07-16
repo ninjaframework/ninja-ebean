@@ -28,11 +28,8 @@ import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_GENERATE;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_RUN;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_MODELS;
 
-import java.util.List;
 import java.util.logging.Logger;
 
-import ninja.lifecycle.Dispose;
-import ninja.lifecycle.Start;
 import ninja.utils.NinjaProperties;
 
 import com.avaje.ebean.EbeanServer;
@@ -155,16 +152,10 @@ public class NinjaEbeanServerLifecycle {
 
         // create the EbeanServer instance
         ebeanServer = EbeanServerFactory.create(serverConfig);
+        
+        // Activate the Ebean shutdown manager (disconnects from db, shuts down all threads and so on)
+        ShutdownManager.touch();
 
-    }
-
-    /**
-     * This method shuts down Ebean and all connections in a nice way.
-     */
-    @Dispose
-    public void stopServer() {
-        logger.info("Stoppping Ebeans module.");
-        ShutdownManager.shutdown();
     }
 
     public EbeanServer getEbeanServer() {
