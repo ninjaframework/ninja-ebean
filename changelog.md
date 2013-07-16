@@ -1,3 +1,10 @@
+Version X
+=========
+
+ * Version bump to Ninja 1.5
+ * Fixed Java Version to 1.7 
+ 
+ 
 1.2
 ===
 

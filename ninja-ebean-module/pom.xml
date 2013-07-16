@@ -34,7 +34,7 @@
 
 		<dependency>
 			<groupId>org.ninjaframework</groupId>
-			<artifactId>ninja-servlet</artifactId>
+			<artifactId>ninja-core</artifactId>
 			<version>${ninja.version}</version>
             <scope>provided</scope>
 		</dependency>
