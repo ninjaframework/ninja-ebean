@@ -46,7 +46,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<siteProjectVersion>${project.version}</siteProjectVersion>
-        <ninja.version>1.5</ninja.version>
+        <ninja.version>2.0.0</ninja.version>
 	</properties>
 
 	<!-- Fix version 1.6 of java compiler in all submodules: -->

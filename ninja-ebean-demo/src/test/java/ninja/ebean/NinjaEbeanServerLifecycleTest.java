@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 
 import ninja.lifecycle.Dispose;
 import ninja.lifecycle.Start;
+import ninja.utils.NinjaMode;
 import ninja.utils.NinjaProperties;
 import ninja.utils.NinjaPropertiesImpl;
 
@@ -54,7 +55,7 @@ public class NinjaEbeanServerLifecycleTest {
             // /////////////////////////////////////////////////////////////////////
             // Setup and spy on the properties
             // /////////////////////////////////////////////////////////////////////
-            NinjaProperties ninjaProperties = spy(new NinjaPropertiesImpl());
+            NinjaProperties ninjaProperties = spy(new NinjaPropertiesImpl(NinjaMode.test));
 
             NinjaEbeanServerLifecycle ninjaEbeanServerLifecycle = new NinjaEbeanServerLifecycle(
                     logger, ninjaProperties);
