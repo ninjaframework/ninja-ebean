@@ -31,6 +31,12 @@
     <dependencies>
 
         <dependency>
+            <groupId>org.avaje.ebeanorm</groupId>
+            <artifactId>avaje-ebeanorm</artifactId>
+            <version>3.2.5</version>
+        </dependency>
+        
+        <dependency>
             <groupId>org.ninjaframework</groupId>
             <artifactId>ninja-core</artifactId>
             <version>${ninja.version}</version>
@@ -41,12 +47,7 @@
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
             <version>1.0.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.avaje.ebeanorm</groupId>
-            <artifactId>avaje-ebeanorm</artifactId>
-            <version>3.2.5</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

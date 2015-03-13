@@ -3,6 +3,8 @@
  
  * 2015-03-12 H2 DB now in provided scope so downstream projects do not need to manually
    exclude it (if they are using another vendor)
+ * 2015-03-12 javax.persistence now in provided scope so downstream projects do not need to manually
+   exclude it (if they are using another vendor)
  * 2015-03-12 ebean.models accepts packages -- simply add a ".*" at the end of the package
    name to differentiate it from a single classname.
  * 2015-03-12 Factory method to create ebean server in NinjaEbeanServerLifecycle
