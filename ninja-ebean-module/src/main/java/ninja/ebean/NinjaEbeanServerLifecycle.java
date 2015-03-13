@@ -108,7 +108,7 @@ public class NinjaEbeanServerLifecycle {
 
         ServerConfig serverConfig = new ServerConfig();
         serverConfig.setName(ebeanDatasourceName);
-
+        
         // Define DataSource parameters
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
         dataSourceConfig.setDriver(ebeanDatasourceDatabaseDriver);
@@ -151,11 +151,23 @@ public class NinjaEbeanServerLifecycle {
         
 
         // create the EbeanServer instance
-        ebeanServer = EbeanServerFactory.create(serverConfig);
+        ebeanServer = createEbeanServer(serverConfig);
         
         // Activate the Ebean shutdown manager (disconnects from db, shuts down all threads and so on)
         ShutdownManager.touch();
 
+    }
+    
+    /**
+     * Creates the Ebean server with the prepared server config.  Provides a
+     * last chance to modify the config in a subclass if you'd like to customize
+     * the config further.
+     * 
+     * @param serverConfig The prepared server config
+     * @return The newly created Ebean server
+     */
+    public EbeanServer createEbeanServer(ServerConfig serverConfig) {
+        return EbeanServerFactory.create(serverConfig);
     }
 
     public EbeanServer getEbeanServer() {
