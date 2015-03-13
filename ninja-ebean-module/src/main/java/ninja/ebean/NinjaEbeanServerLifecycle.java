@@ -28,8 +28,6 @@ import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_GENERATE;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_RUN;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_MODELS;
 
-import java.util.logging.Logger;
-
 import ninja.utils.NinjaProperties;
 
 import com.avaje.ebean.EbeanServer;
@@ -39,6 +37,9 @@ import com.avaje.ebean.config.ServerConfig;
 import com.avaje.ebeaninternal.server.lib.ShutdownManager;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import org.slf4j.Logger;
 
 /**
  * This is an internal class of Ninja Ebeans support. It is responsible for
@@ -66,7 +67,6 @@ public class NinjaEbeanServerLifecycle {
         this.ninjaProperties = ninjaProperties;
         
         startServer();
-        
     }
 
     /**
@@ -74,7 +74,7 @@ public class NinjaEbeanServerLifecycle {
      * your application.conf file and configures Ebean accordingly.
      * 
      */
-    public void startServer(){
+    public final void startServer(){
         logger.info("Starting Ebeans Module.");
 
         // /////////////////////////////////////////////////////////////////////
@@ -128,36 +128,75 @@ public class NinjaEbeanServerLifecycle {
         serverConfig.setDefaultServer(true);
         serverConfig.setRegister(true);
 
-        serverConfig.addPackage("models");
+        // split models configuration into classes & packages
+        Set<String> packageNames = new LinkedHashSet<>();
+        Set<Class<?>> entityClasses = new LinkedHashSet<>();
+        
+        // models always added by default
+        packageNames.add("models");
         
         // add manually listed classes from the property
         String[] manuallyListedModels = ninjaProperties.getStringArray(EBEAN_MODELS);
         
         if (manuallyListedModels != null) {
-        
+            
             for (String model : manuallyListedModels) {
-    
+                
                 if (model.endsWith(".*")) {
                     
                     // strip off .* at end
                     String packageName = model.substring(0, model.length() - 2);
                     
-                    serverConfig.addPackage(packageName);
+                    packageNames.add(packageName);
                     
                 }
                 else {
-                
+                    
                     try {
 
-                        serverConfig.addClass(Class.forName(model));
+                        entityClasses.add(Class.forName(model));
 
                     } catch (ClassNotFoundException e) {
                         throw new RuntimeException(
-                                "Configuration error. Class not listed in " + EBEAN_MODELS + " not found: " + model);
+                            "Configuration error. Class listed/discovered via " + EBEAN_MODELS + " not found: " + model);
                     }
                     
                 }
+                
             }
+            
+        }
+        
+        // if any packages were specified the reflections library MUST be available
+        if (!packageNames.isEmpty()) {
+            
+            for (String packageName : packageNames) {
+                
+                Set<String> packageClasses
+                        = ReflectionsHelper.findAllClassesInPackage(packageName);
+                
+                logger.info("Searched and found " + packageClasses.size() + " classes in package " + packageName);
+                
+                for (String packageClass : packageClasses) {
+                    
+                    try {
+                        entityClasses.add(Class.forName(packageClass));
+                    }
+                    catch (ClassNotFoundException e) {
+                        // should be impossible since Reflections just found 'em
+                        throw new RuntimeException("Something fishy happenend. Unable to find class " + packageClass);
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        for (Class<?> entityClass : entityClasses) {
+            
+            serverConfig.addClass(entityClass);
+
         }
         
         // create the EbeanServer instance

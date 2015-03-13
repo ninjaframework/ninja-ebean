@@ -23,7 +23,6 @@ import static org.mockito.Mockito.verify;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 import ninja.lifecycle.Dispose;
 import ninja.lifecycle.Start;
@@ -35,6 +34,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.slf4j.Logger;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NinjaEbeanServerLifecycleTest {
