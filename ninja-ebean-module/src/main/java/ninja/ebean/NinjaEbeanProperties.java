@@ -35,6 +35,12 @@ public interface NinjaEbeanProperties {
      * make that reliable you can use that property.
      * 
      * ebean.models=model.myModel1, model.myModel2
+     * 
+     * To register all classes in a package, simply append a ".*" at the end
+     * of your model name.
+     * 
+     * ebean.models=model.MyModel1,com.company.models.*
+     * 
      */
     public final String EBEAN_MODELS = "ebean.models";
 

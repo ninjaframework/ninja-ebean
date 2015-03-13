@@ -128,28 +128,38 @@ public class NinjaEbeanServerLifecycle {
         serverConfig.setDefaultServer(true);
         serverConfig.setRegister(true);
 
-        
         serverConfig.addPackage("models");
         
         // add manually listed classes from the property
-        String [] manuallyListedModels = ninjaProperties.getStringArray(EBEAN_MODELS);
+        String[] manuallyListedModels = ninjaProperties.getStringArray(EBEAN_MODELS);
         
         if (manuallyListedModels != null) {
         
             for (String model : manuallyListedModels) {
     
-                try {
+                if (model.endsWith(".*")) {
+                    
+                    // strip off .* at end
+                    String packageName = model.substring(0, model.length() - 2);
+                    
+                    serverConfig.addPackage(packageName);
+                    
+                }
+                else {
                 
-                    serverConfig.addClass(Class.forName(model));
-                
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(
-                            "Configuration error. Class not listed in " + EBEAN_MODELS + " not found: " + model);
+                    try {
+
+                        serverConfig.addClass(Class.forName(model));
+
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(
+                                "Configuration error. Class not listed in " + EBEAN_MODELS + " not found: " + model);
+                    }
+                    
                 }
             }
         }
         
-
         // create the EbeanServer instance
         ebeanServer = createEbeanServer(serverConfig);
         
