@@ -139,64 +139,41 @@ public class NinjaEbeanServerLifecycle {
         String[] manuallyListedModels = ninjaProperties.getStringArray(EBEAN_MODELS);
         
         if (manuallyListedModels != null) {
-            
-            for (String model : manuallyListedModels) {
-                
+            for (String model: manuallyListedModels) {
                 if (model.endsWith(".*")) {
-                    
                     // strip off .* at end
                     String packageName = model.substring(0, model.length() - 2);
-                    
                     packageNames.add(packageName);
-                    
-                }
-                else {
-                    
+                } else {
                     try {
-
                         entityClasses.add(Class.forName(model));
-
                     } catch (ClassNotFoundException e) {
                         throw new RuntimeException(
                             "Configuration error. Class listed/discovered via " + EBEAN_MODELS + " not found: " + model);
                     }
-                    
                 }
-                
             }
-            
         }
-        
+
         // if any packages were specified the reflections library MUST be available
         if (!packageNames.isEmpty()) {
-            
             for (String packageName : packageNames) {
-                
                 Set<String> packageClasses
                         = ReflectionsHelper.findAllClassesInPackage(packageName);
-                
                 logger.info("Searched and found " + packageClasses.size() + " classes in package " + packageName);
-                
                 for (String packageClass : packageClasses) {
-                    
                     try {
                         entityClasses.add(Class.forName(packageClass));
-                    }
-                    catch (ClassNotFoundException e) {
+                    } catch (ClassNotFoundException e) {
                         // should be impossible since Reflections just found 'em
                         throw new RuntimeException("Something fishy happenend. Unable to find class " + packageClass);
                     }
-                    
                 }
-                
             }
-            
         }
-        
-        for (Class<?> entityClass : entityClasses) {
-            
-            serverConfig.addClass(entityClass);
 
+        for (Class<?> entityClass : entityClasses) {
+            serverConfig.addClass(entityClass);
         }
         
         // create the EbeanServer instance

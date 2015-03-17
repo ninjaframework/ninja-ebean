@@ -1,6 +1,7 @@
 1.4.1
 =====
- 
+
+ * 2015-03-17 Bump to Ninja 4.0.5 in tests (ra) 
  * 2015-03-12 H2 DB now in provided scope so downstream projects do not need to manually
    exclude it (if they are using another vendor)
  * 2015-03-12 javax.persistence now in provided scope so downstream projects do not need to manually
