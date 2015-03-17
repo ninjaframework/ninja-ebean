@@ -34,10 +34,8 @@ public class NinjaEbeanModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        
         //nothing to bind...
     }
-    
     
     @Provides
     @Singleton

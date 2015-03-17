@@ -29,24 +29,46 @@ further information.
 
 More about Ebean: http://www.avaje.org
 
-NOTE:
-Obviously this module lacks documentation. Feel free to
-contribute to the project and the wiki. Thanks!
+Overview
+--------
 
+This module works with a wide range of Ebean versions. It currently uses a 
+minimum version of ebean v3.2.5, but has also been tested with the latest versions
+in the 4.x series. Since this module more or less configures the ebean server,
+it should be compatible with any ebean release that continues to support those
+configuration properties.
+
+NOTE: This module only supports a single (default) ebean server.  Feel free to
+contribute code to the project if you need other features. Thanks!
 
 Setup
 -----
 
-1) Add you db conf to your application.conf file. For instance:
+1) Add your db conf to your application.conf file. For a simple H2 database:
 
     ebean.datasource.databaseUrl=jdbc:h2:testdatabase:tests;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
  
+For a MySQL database (you'll also need to add the MySQL driver dependency to
+your project)
+
+    ebean.ddl.generate = false
+    ebean.ddl.run = false
+    ebean.models = com.company.models.*,org.otherorg.models.Foo
+    ebean.datasource.name = NameOfEbeanServer
+    ebean.datasource.databaseUrl = jdbc:mysql://localhost:3306/dbname
+    ebean.datasource.databaseDriver = com.mysql.jdbc.Driver
+    ebean.datasource.username = root
+    ebean.datasource.password = test
+
+Please note that <code>ebean.models</code> accepts a comma delimited list of
+both class names as well as packages (just make sure it ends with .*)
+
 2) Add the ninja-ebeans dependency to your pom.xml:
 
     <dependency>
         <groupId>org.ninjaframework</groupId>
         <artifactId>ninja-ebean-module</artifactId>
-        <version>1.1</version>
+        <version>1.4.1</version>
     </dependency>
     
 3) Add ebean's enhancer plugin to your pom.xml:
