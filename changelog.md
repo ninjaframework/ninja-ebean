@@ -1,3 +1,9 @@
+X.X.X
+=====
+
+ * 2015-08-27 Ebean DDL properties default to false to avoid accidental database recreation (metacity)
+ * 2015-08-27 Call loadFromProperties() explicitly to avoid NPE in Ebean 6.4.1 (metacity)
+
 1.5.0
 =====
 
