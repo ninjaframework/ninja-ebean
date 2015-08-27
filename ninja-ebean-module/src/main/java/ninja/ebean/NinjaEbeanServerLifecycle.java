@@ -81,9 +81,9 @@ public class NinjaEbeanServerLifecycle {
         // Setup basic parameters
         // /////////////////////////////////////////////////////////////////////
         boolean ebeanDdlGenerate = ninjaProperties.getBooleanWithDefault(
-                EBEAN_DDL_GENERATE, true);
+                EBEAN_DDL_GENERATE, false);
         boolean ebeanDdlRun = ninjaProperties.getBooleanWithDefault(
-                EBEAN_DDL_RUN, true);
+                EBEAN_DDL_RUN, false);
 
         String ebeanDatasourceName = ninjaProperties.getWithDefault(
                 EBEAN_DATASOURCE_NAME, "default");
@@ -108,6 +108,7 @@ public class NinjaEbeanServerLifecycle {
 
         ServerConfig serverConfig = new ServerConfig();
         serverConfig.setName(ebeanDatasourceName);
+        serverConfig.loadFromProperties();
         
         // Define DataSource parameters
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
