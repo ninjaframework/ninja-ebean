@@ -1,4 +1,4 @@
-X.X.X
+1.5.1
 =====
 
  * 2015-08-27 Ebean DDL properties default to false to avoid accidental database recreation (metacity)
