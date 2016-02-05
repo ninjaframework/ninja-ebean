@@ -7,5 +7,9 @@ target
 
 # no sql DDL stuff
 *.sql
+
+# except for demo seed database file
+!database.seed.sql
+
 # no h2 databases
 *.db
