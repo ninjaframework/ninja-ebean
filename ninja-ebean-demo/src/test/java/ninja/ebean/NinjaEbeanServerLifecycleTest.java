@@ -69,9 +69,9 @@ public class NinjaEbeanServerLifecycleTest {
             // Verify that properties are correct
             // /////////////////////////////////////////////////////////////////////
             verify(ninjaProperties).getBooleanWithDefault("ebean.ddl.generate",
-                    true);
+                    false);
             verify(ninjaProperties)
-                    .getBooleanWithDefault("ebean.ddl.run", true);
+                    .getBooleanWithDefault("ebean.ddl.run", false);
 
             verify(ninjaProperties).getWithDefault("ebean.datasource.name",
                     "default");
@@ -96,7 +96,10 @@ public class NinjaEbeanServerLifecycleTest {
             
             verify(ninjaProperties).getStringArray(
                     "ebean.models");
-
+            
+            verify(ninjaProperties).get("ebean.ddl.initSql");
+            
+            verify(ninjaProperties).get("ebean.ddl.seedSql");
             // be nice and stop the server afterwards
             //ninjaEbeanServerLifecycle.stopServer();
         } catch (Exception e) {
