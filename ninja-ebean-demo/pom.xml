@@ -129,6 +129,7 @@
 
         <pluginManagement>
             <plugins>
+                <!-- Taken Directly from: http://stackoverflow.com/questions/11996507/how-do-i-enable-ebean-enhancement-in-maven -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -138,19 +139,16 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>org.avaje</groupId>
-                                        <artifactId>
-                                            ebean-maven-enhancement-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [2.7.7,)
-                                        </versionRange>
+                                        <groupId>org.avaje.ebeanorm</groupId>
+                                        <artifactId>avaje-ebeanorm-mavenenhancer</artifactId>
+                                        <versionRange>[3.3.2,)</versionRange>
                                         <goals>
                                             <goal>enhance</goal>
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
                                         <execute>
+                                            <runOnConfiguration>true</runOnConfiguration>
                                             <runOnIncremental>true</runOnIncremental>
                                         </execute>
                                     </action>
