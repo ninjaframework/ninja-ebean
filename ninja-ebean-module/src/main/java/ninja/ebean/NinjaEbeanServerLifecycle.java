@@ -26,6 +26,10 @@ import static ninja.ebean.NinjaEbeanProperties.EBEAN_DATASOURCE_PASSWORD;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_DATASOURCE_USERNAME;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_GENERATE;
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_RUN;
+import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_INIT_SQL;
+import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_SEED_SQL;
+
+
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_MODELS;
 
 import ninja.utils.NinjaProperties;
@@ -85,6 +89,9 @@ public class NinjaEbeanServerLifecycle {
         boolean ebeanDdlRun = ninjaProperties.getBooleanWithDefault(
                 EBEAN_DDL_RUN, false);
 
+        String ebeanDdlInitSql = ninjaProperties.get(EBEAN_DDL_INIT_SQL);
+        String ebeanDdlSeedSql = ninjaProperties.get(EBEAN_DDL_SEED_SQL);
+        
         String ebeanDatasourceName = ninjaProperties.getWithDefault(
                 EBEAN_DATASOURCE_NAME, "default");
         String ebeanDatasourceUserName = ninjaProperties.getWithDefault(
@@ -125,6 +132,8 @@ public class NinjaEbeanServerLifecycle {
         // set DDL options...
         serverConfig.setDdlGenerate(ebeanDdlGenerate);
         serverConfig.setDdlRun(ebeanDdlRun);
+        serverConfig.setDdlInitSql(ebeanDdlInitSql);
+        serverConfig.setDdlSeedSql(ebeanDdlSeedSql);
 
         serverConfig.setDefaultServer(true);
         serverConfig.setRegister(true);
