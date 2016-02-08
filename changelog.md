@@ -1,3 +1,9 @@
+2.0.0
+=====
+
+ * 2016-01-08 Expose DDL Seed and Init SQL properties (drouillard)
+ * 2016-01-08 Bump to ebean 6.16.4 (drouillard)
+
 1.5.1
 =====
 
