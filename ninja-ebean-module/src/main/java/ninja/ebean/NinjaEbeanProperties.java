@@ -47,6 +47,9 @@ public interface NinjaEbeanProperties {
     public final String EBEAN_DDL_GENERATE = "ebean.ddl.generate";
     public final String EBEAN_DDL_RUN = "ebean.ddl.run";
 
+    public final String EBEAN_DDL_SEED_SQL = "ebean.ddl.seedSql";
+    public final String EBEAN_DDL_INIT_SQL = "ebean.ddl.initSql";
+     
     public final String EBEAN_DATASOURCE_USERNAME = "ebean.datasource.username";
     public final String EBEAN_DATASOURCE_PASSWORD = "ebean.datasource.password";
     
@@ -58,4 +61,5 @@ public interface NinjaEbeanProperties {
     public final String EBEAN_DATASOURCE_HEARTBEAT_SQL = "ebean.datasource.heartbeatsql";
     public final String EBEAN_DATASOURCE_ISOLATION_LEVEL = "ebean.datasource.isolationlevel";
 
+    
 }

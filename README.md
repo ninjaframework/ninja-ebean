@@ -60,6 +60,7 @@ your project)
     ebean.datasource.username = root
     ebean.datasource.password = test
 
+
 Please note that <code>ebean.models</code> accepts a comma delimited list of
 both class names as well as packages (just make sure it ends with .*)
 
@@ -74,23 +75,21 @@ both class names as well as packages (just make sure it ends with .*)
 3) Add ebean's enhancer plugin to your pom.xml:
 
     <plugin>
-        <groupId>org.avaje</groupId>
-        <artifactId>ebean-maven-enhancement-plugin</artifactId>
-        <version>2.8.1</version>
+        <groupId>org.avaje.ebeanorm</groupId>
+        <artifactId>avaje-ebeanorm-mavenenhancer</artifactId>
+        <version>4.7.1</version>
         <executions>
             <execution>
-                <id>main</id>
+                <id>ebean-enhancer</id>
                 <phase>process-classes</phase>
+                <configuration>
+                    <classSource>${project.build.outputDirectory}</classSource>
+                    <packages>models</packages>
+                    <transformArgs>debug=1</transformArgs>
+                </configuration>
                 <goals>
                     <goal>enhance</goal>
                 </goals>
-                <configuration>
-                    <packages>models</packages>
-                    <transformArgs>debug=1</transformArgs>
-                    <!-- workaround against bug in ebean: https://groups.google.com/forum/?fromgroups#!topic/ebean/w2Q6PSeXKAk%5B1-25%5D -->
-                    <classSource>${project.build.outputDirectory}</classSource>
-                    <classDestination>${project.build.outputDirectory}</classDestination>
-                </configuration>
             </execution>
         </executions>
     </plugin>
