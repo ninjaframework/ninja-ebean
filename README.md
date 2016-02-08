@@ -17,7 +17,7 @@ More
 ----
 
  * Source: http://github.com/ninjaframework/ninja
- * Continuous integration: https://buildhive.cloudbees.com/job/reyez/job/ninja-ebean/
+ * Continuous integration: [![Build Status](https://api.travis-ci.org/ninjaframework/ninja-ebean.svg)](https://travis-ci.org/ninjaframework/ninja-ebean)
  
 
 Getting started
