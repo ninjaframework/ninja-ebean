@@ -1,16 +1,16 @@
      _______  .___ _______        ____.  _____   
      \      \ |   |\      \      |    | /  _  \  
-     /   |   \|   |/   |   \     |    |/  /_\  \ 
+     /   |   \|   |/   |   \     |    |/  /_\  \
     /    |    \   /    |    \/\__|    /    |    \
     \____|__  /___\____|__  /\________\____|__  /
-         web\/framework   \/                  \/ 
-        
+         web\/framework   \/                  \/
+
 
 
 Ebean support for Ninja
 =======================
 Ebean is a simple and powerful ORM tool.
-This plugin allows to use Ebean in any Ninja 
+This plugin allows to use Ebean in any Ninja
 application.
 
 More
@@ -18,13 +18,13 @@ More
 
  * Source: http://github.com/ninjaframework/ninja
  * Continuous integration: [![Build Status](https://api.travis-ci.org/ninjaframework/ninja-ebean.svg)](https://travis-ci.org/ninjaframework/ninja-ebean)
- 
+
 
 Getting started
 ---------------
 Configuring the module for your application is quite easy. There
 is a demo application that shows you how to do it.
-Check out subproject ninja-ebean-demo/pom.xml for 
+Check out subproject ninja-ebean-demo/pom.xml for
 further information.
 
 More about Ebean: http://www.avaje.org
@@ -32,13 +32,15 @@ More about Ebean: http://www.avaje.org
 Overview
 --------
 
-This module works with a wide range of Ebean versions. It currently uses a 
-minimum version of ebean v3.2.5, but has also been tested with the latest versions
-in the 4.x series. Since this module more or less configures the ebean server,
-it should be compatible with any ebean release that continues to support those
+This module works with the latest versions of Ebean and it currently requires a
+minimum Ebean version of v6.16.4. Since this module more or less configures the Ebean server,
+it should be compatible with any Ebean release that continues to support current
 configuration properties.
 
-NOTE: This module only supports a single (default) ebean server.  Feel free to
+If you need compatibility with earlier versions of Ebean please see [v1.5.1](https://github.com/ninjaframework/ninja-ebean/releases/tag/ninja-ebean-1.5.1) which supports a minimum Ebean version v3.2.5, and has also been tested with the later versions
+in the 4.x series.
+
+NOTE: This module only supports a single (default) Ebean server.  Feel free to
 contribute code to the project if you need other features. Thanks!
 
 Setup
@@ -47,7 +49,7 @@ Setup
 1) Add your db conf to your application.conf file. For a simple H2 database:
 
     ebean.datasource.databaseUrl=jdbc:h2:testdatabase:tests;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
- 
+
 For a MySQL database (you'll also need to add the MySQL driver dependency to
 your project)
 
@@ -71,7 +73,7 @@ both class names as well as packages (just make sure it ends with .*)
         <artifactId>ninja-ebean-module</artifactId>
         <version>1.4.1</version>
     </dependency>
-    
+
 3) Add ebean's enhancer plugin to your pom.xml:
 
     <plugin>
@@ -101,7 +103,6 @@ both class names as well as packages (just make sure it ends with .*)
         // This installs the NinjaModule and handles the lifecycle
         install(new NinjaEbeanModule());
     }
-    
-    
-And that's it already :)
 
+
+And that's it already :)
