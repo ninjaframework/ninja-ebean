@@ -34,13 +34,13 @@ import static ninja.ebean.NinjaEbeanProperties.EBEAN_MODELS;
 
 import ninja.utils.NinjaProperties;
 
-import com.avaje.ebean.EbeanServer;
-import com.avaje.ebean.EbeanServerFactory;
-import com.avaje.ebean.config.DataSourceConfig;
-import com.avaje.ebean.config.ServerConfig;
-import com.avaje.ebeaninternal.server.lib.ShutdownManager;
+import io.ebean.EbeanServer;
+import io.ebean.EbeanServerFactory;
+import io.ebean.config.ServerConfig;
+import io.ebeaninternal.server.lib.ShutdownManager;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import io.ebean.datasource.DataSourceConfig;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import org.slf4j.Logger;

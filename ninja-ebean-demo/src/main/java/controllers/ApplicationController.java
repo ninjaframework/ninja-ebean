@@ -27,7 +27,7 @@ import ninja.params.Param;
 
 import org.slf4j.Logger;
 
-import com.avaje.ebean.EbeanServer;
+import io.ebean.EbeanServer;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
