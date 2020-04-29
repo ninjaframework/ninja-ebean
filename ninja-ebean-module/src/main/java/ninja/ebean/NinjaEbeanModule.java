@@ -16,7 +16,7 @@
 
 package ninja.ebean;
 
-import com.avaje.ebean.EbeanServer;
+import io.ebean.EbeanServer;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
