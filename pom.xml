@@ -24,6 +24,28 @@
     <packaging>pom</packaging>
     <version>3.0.1-SNAPSHOT</version>
     <url>http://www.ninjaframework.org</url>
+    <name>${project.artifactId}</name>
+    <description>Ebean (SQL framework) support for Ninja web framework</description>
+    
+    <developers>
+        <developer>
+            <name>Joe Lauer</name>
+            <email>joe@fizzed.com</email>
+            <organization>Fizzed, Inc.</organization>
+            <organizationUrl>http://fizzed.com</organizationUrl>
+            <roles>
+                <role>Lead Architect</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Raphael A. Bauer</name>
+            <email>r@raphaelbauer.com</email>
+            <url>https://www.raphaelbauer.com</url>
+            <roles>
+                <role>Lead Architect</role>
+            </roles>
+        </developer>
+    </developers>
 
 
     <modules>
@@ -111,6 +133,14 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+    
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
 
     <profiles>
