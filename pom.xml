@@ -22,7 +22,7 @@
     <groupId>org.ninjaframework</groupId>
     <artifactId>ninja-ebean</artifactId>
     <packaging>pom</packaging>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.0</version>
     <url>http://www.ninjaframework.org</url>
 
 
@@ -84,7 +84,7 @@
         <url>https://github.com/ninjaframework/ninja-ebean</url>
         <connection>scm:git://github.com/ninjaframework/ninja-ebean.git</connection>
         <developerConnection>scm:git:git@github.com:ninjaframework/ninja-ebean.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>ninja-ebean-3.0.0</tag>
   </scm>
 
     <issueManagement>
