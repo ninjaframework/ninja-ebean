@@ -106,3 +106,49 @@ both class names as well as packages (just make sure it ends with .*)
 
 
 And that's it already :)
+
+# Releasing (committers only)
+
+Make sure you got gpg installed on your machine. Gpg is as good as gpg2, so
+there's not much difference. But the gpg plugin in maven works better with gpg,
+so we go with that one
+
+    brew install gpg
+
+Make sure to create a key
+
+    gpg --gen-key
+
+Then list the keys and send the public key to a keyserver so that people can
+verify that it's you:
+
+    gpg --keyserver hkp://pool.sks-keyservers.net --send-keys YOUR_PUBLIC_KEY
+
+Make sure to set 
+
+    export GPG_TTY=$(tty)
+
+... that way any input of gpg will be properly shown (entering your passphrase for instance)...
+
+Make sure you set the sonatype credentials in your ~/.m2/settings.xml:
+
+```
+<settings>
+
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>USERNAME</username>
+      <password>PASSWORD</password>
+    </server>
+  </servers>
+
+</settings>
+```
+
+
+Then you can create  a new release like so:
+
+    mvn release:clean -Prelease
+    mvn release:prepare -Prelease
+    mvn release:perform -Prelease
