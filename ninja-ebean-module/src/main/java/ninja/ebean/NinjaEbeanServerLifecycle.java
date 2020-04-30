@@ -48,11 +48,11 @@ import org.slf4j.Logger;
 /**
  * This is an internal class of Ninja Ebeans support. It is responsible for
  * creating db connections and shutting them down upon server start / stop.
- * <p>
+ * 
  * As end-user you should NOT use this method directly. Instead simply inject
  * EbeanServer into the class you want to use. The interface EbeanServer is
  * configured by this class and provided by a provider.
- * <p>
+ * 
  */
 @Singleton
 public class NinjaEbeanServerLifecycle {
