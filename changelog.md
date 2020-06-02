@@ -1,3 +1,10 @@
+3.0.0
+=====
+
+ * 2020-04-29 Bump to Ebean 12.1.1+ (jjlauer)
+ * 2020-04-29 Bump to Ninja 6.0.0+ (jjlauer)
+ * 2020-04-29 Requires Java 8+ (jjlauer)
+
 2.0.0
 =====
 

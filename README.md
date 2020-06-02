@@ -27,15 +27,15 @@ is a demo application that shows you how to do it.
 Check out subproject ninja-ebean-demo/pom.xml for
 further information.
 
-More about Ebean: http://www.avaje.org
+More about Ebean: https://ebean.io/
 
 Overview
 --------
 
-This module works with the latest versions of Ebean and it currently requires a
-minimum Ebean version of v6.16.4. Since this module more or less configures the Ebean server,
-it should be compatible with any Ebean release that continues to support current
-configuration properties.
+This module works with the Ebean version 12.1.1+.
+
+If you need compatibility with earlier versions of Ebean please see [v2.0.0](https://github.com/ninjaframework/ninja-ebean/releases/tag/ninja-ebean-2.0.0) which supports a minimum Ebean version v3.2.5, and has also been tested with the later versions
+in the 6.x-8.x series.
 
 If you need compatibility with earlier versions of Ebean please see [v1.5.1](https://github.com/ninjaframework/ninja-ebean/releases/tag/ninja-ebean-1.5.1) which supports a minimum Ebean version v3.2.5, and has also been tested with the later versions
 in the 4.x series.
@@ -71,15 +71,15 @@ both class names as well as packages (just make sure it ends with .*)
     <dependency>
         <groupId>org.ninjaframework</groupId>
         <artifactId>ninja-ebean-module</artifactId>
-        <version>1.4.1</version>
+        <version>3.0.0</version>
     </dependency>
 
 3) Add ebean's enhancer plugin to your pom.xml:
 
     <plugin>
-        <groupId>org.avaje.ebeanorm</groupId>
-        <artifactId>avaje-ebeanorm-mavenenhancer</artifactId>
-        <version>4.7.1</version>
+        <groupId>io.ebean</groupId>
+        <artifactId>ebean-maven-plugin</artifactId>
+        <version>12.1.1</version>
         <executions>
             <execution>
                 <id>ebean-enhancer</id>
@@ -106,3 +106,49 @@ both class names as well as packages (just make sure it ends with .*)
 
 
 And that's it already :)
+
+# Releasing (committers only)
+
+Make sure you got gpg installed on your machine. Gpg is as good as gpg2, so
+there's not much difference. But the gpg plugin in maven works better with gpg,
+so we go with that one
+
+    brew install gpg
+
+Make sure to create a key
+
+    gpg --gen-key
+
+Then list the keys and send the public key to a keyserver so that people can
+verify that it's you:
+
+    gpg --keyserver hkp://pool.sks-keyservers.net --send-keys YOUR_PUBLIC_KEY
+
+Make sure to set 
+
+    export GPG_TTY=$(tty)
+
+... that way any input of gpg will be properly shown (entering your passphrase for instance)...
+
+Make sure you set the sonatype credentials in your ~/.m2/settings.xml:
+
+```
+<settings>
+
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>USERNAME</username>
+      <password>PASSWORD</password>
+    </server>
+  </servers>
+
+</settings>
+```
+
+
+Then you can create  a new release like so:
+
+    mvn release:clean -Prelease
+    mvn release:prepare -Prelease
+    mvn release:perform -Prelease

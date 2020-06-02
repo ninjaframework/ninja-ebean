@@ -34,13 +34,13 @@ import static ninja.ebean.NinjaEbeanProperties.EBEAN_MODELS;
 
 import ninja.utils.NinjaProperties;
 
-import com.avaje.ebean.EbeanServer;
-import com.avaje.ebean.EbeanServerFactory;
-import com.avaje.ebean.config.DataSourceConfig;
-import com.avaje.ebean.config.ServerConfig;
-import com.avaje.ebeaninternal.server.lib.ShutdownManager;
+import io.ebean.EbeanServer;
+import io.ebean.EbeanServerFactory;
+import io.ebean.config.ServerConfig;
+import io.ebeaninternal.server.lib.ShutdownManager;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import io.ebean.datasource.DataSourceConfig;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import org.slf4j.Logger;
@@ -48,11 +48,11 @@ import org.slf4j.Logger;
 /**
  * This is an internal class of Ninja Ebeans support. It is responsible for
  * creating db connections and shutting them down upon server start / stop.
- * <p>
+ * 
  * As end-user you should NOT use this method directly. Instead simply inject
  * EbeanServer into the class you want to use. The interface EbeanServer is
  * configured by this class and provided by a provider.
- * <p>
+ * 
  */
 @Singleton
 public class NinjaEbeanServerLifecycle {

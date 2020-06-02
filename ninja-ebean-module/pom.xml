@@ -25,15 +25,15 @@
     <parent>
         <groupId>org.ninjaframework</groupId>
         <artifactId>ninja-ebean</artifactId>
-        <version>2.0.1-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
 
         <dependency>
-            <groupId>org.avaje.ebeanorm</groupId>
-            <artifactId>avaje-ebeanorm</artifactId>
-            <version>6.16.4</version>
+            <groupId>io.ebean</groupId>
+            <artifactId>ebean</artifactId>
+            <version>${ebean.version}</version>
         </dependency>
         
         <dependency>

@@ -22,16 +22,31 @@
     <groupId>org.ninjaframework</groupId>
     <artifactId>ninja-ebean</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
     <url>http://www.ninjaframework.org</url>
+    <name>${project.artifactId}</name>
+    <description>Ebean (SQL framework) support for Ninja web framework</description>
+    
+    <developers>
+        <developer>
+            <name>Joe Lauer</name>
+            <email>joe@fizzed.com</email>
+            <organization>Fizzed, Inc.</organization>
+            <organizationUrl>http://fizzed.com</organizationUrl>
+            <roles>
+                <role>Lead Architect</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Raphael A. Bauer</name>
+            <email>r@raphaelbauer.com</email>
+            <url>https://www.raphaelbauer.com</url>
+            <roles>
+                <role>Lead Architect</role>
+            </roles>
+        </developer>
+    </developers>
 
-    <!-- Deploy to central maven using the oss-parent of sonatype -->
-    <!-- https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide -->
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
 
     <modules>
         <!-- the module is the core thing -->
@@ -45,24 +60,59 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <siteProjectVersion>${project.version}</siteProjectVersion>
-        <ninja.version>4.0.5</ninja.version>
+        <ninja.version>6.0.0</ninja.version>
+        <ebean.version>12.1.1</ebean.version>
     </properties>
 
     <!-- Fix version 1.6 of java compiler in all submodules: -->
     <build>
 
         <pluginManagement>
-
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.2.0</version>
                     <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
+                        <source>1.8</source>
+                        <additionalparam>-Xdoclint:none</additionalparam>
                     </configuration>
                 </plugin>
-
+            
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.8</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.5</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -71,6 +121,7 @@
         <url>https://github.com/ninjaframework/ninja-ebean</url>
         <connection>scm:git://github.com/ninjaframework/ninja-ebean.git</connection>
         <developerConnection>scm:git:git@github.com:ninjaframework/ninja-ebean.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
@@ -85,6 +136,25 @@
             <archive>http://groups.google.com/group/ninja-framework</archive>
         </mailingList>
     </mailingLists>
+    
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
 
     <profiles>
@@ -129,6 +199,52 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+  
+  
+        
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
         </profile>
     </profiles>
 
