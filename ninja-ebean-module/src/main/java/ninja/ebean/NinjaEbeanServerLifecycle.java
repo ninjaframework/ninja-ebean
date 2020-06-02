@@ -58,19 +58,18 @@ import org.slf4j.Logger;
 public class NinjaEbeanServerLifecycle {
 
     private EbeanServer ebeanServer;
-
     private final NinjaProperties ninjaProperties;
-
     private final Logger logger;
 
     @Inject
-    public NinjaEbeanServerLifecycle(Logger logger,
-                                     NinjaProperties ninjaProperties) {
+    public NinjaEbeanServerLifecycle(
+            Logger logger,
+            NinjaProperties ninjaProperties) {
 
         this.logger = logger;
         this.ninjaProperties = ninjaProperties;
         
-        startServer();
+        this.startServer();
     }
 
     /**
@@ -168,17 +167,7 @@ public class NinjaEbeanServerLifecycle {
         // if any packages were specified the reflections library MUST be available
         if (!packageNames.isEmpty()) {
             for (String packageName : packageNames) {
-                Set<String> packageClasses
-                        = ReflectionsHelper.findAllClassesInPackage(packageName);
-                logger.info("Searched and found " + packageClasses.size() + " classes in package " + packageName);
-                for (String packageClass : packageClasses) {
-                    try {
-                        entityClasses.add(Class.forName(packageClass));
-                    } catch (ClassNotFoundException e) {
-                        // should be impossible since Reflections just found 'em
-                        throw new RuntimeException("Something fishy happenend. Unable to find class " + packageClass);
-                    }
-                }
+                serverConfig.addPackage(packageName);
             }
         }
 
@@ -187,7 +176,7 @@ public class NinjaEbeanServerLifecycle {
         }
         
         // create the EbeanServer instance
-        ebeanServer = createEbeanServer(serverConfig);
+        this.ebeanServer = this.createEbeanServer(serverConfig);
         
         // Activate the Ebean shutdown manager (disconnects from db, shuts down all threads and so on)
         ShutdownManager.touch();
