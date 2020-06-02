@@ -168,17 +168,20 @@ public class NinjaEbeanServerLifecycle {
         // if any packages were specified the reflections library MUST be available
         if (!packageNames.isEmpty()) {
             for (String packageName : packageNames) {
-                Set<String> packageClasses
-                        = ReflectionsHelper.findAllClassesInPackage(packageName);
-                logger.info("Searched and found " + packageClasses.size() + " classes in package " + packageName);
-                for (String packageClass : packageClasses) {
-                    try {
-                        entityClasses.add(Class.forName(packageClass));
-                    } catch (ClassNotFoundException e) {
-                        // should be impossible since Reflections just found 'em
-                        throw new RuntimeException("Something fishy happenend. Unable to find class " + packageClass);
-                    }
-                }
+                
+                serverConfig.addPackage(packageName);
+                
+//                Set<String> packageClasses
+//                        = ReflectionsHelper.findAllClassesInPackage(packageName);
+//                logger.info("Searched and found " + packageClasses.size() + " classes in package " + packageName);
+//                for (String packageClass : packageClasses) {
+//                    try {
+//                        entityClasses.add(Class.forName(packageClass));
+//                    } catch (ClassNotFoundException e) {
+//                        // should be impossible since Reflections just found 'em
+//                        throw new RuntimeException("Something fishy happenend. Unable to find class " + packageClass);
+//                    }
+//                }
             }
         }
 
