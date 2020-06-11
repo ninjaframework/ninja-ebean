@@ -1,3 +1,8 @@
+3.0.1
+=====
+
+ * 2020-06-11 Use native ebean package finder vs. guava (works better on Java 11) (jjlauer)
+
 3.0.0
 =====
 
