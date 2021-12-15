@@ -16,7 +16,7 @@
 
 package ninja.ebean;
 
-import io.ebean.EbeanServer;
+import io.ebean.Database;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
@@ -39,8 +39,8 @@ public class NinjaEbeanModule extends AbstractModule {
     
     @Provides
     @Singleton
-    EbeanServer provideEbeanServer(NinjaEbeanServerLifecycle ninjaEbeanServerLifecycle) {
-        return ninjaEbeanServerLifecycle.getEbeanServer();
+    Database provideEbeanServer(NinjaEbeanDatabaseLifecycle ninjaEbeanDatabaseLifecycle) {
+        return ninjaEbeanDatabaseLifecycle.getDatabase();
     }
 
 }
