@@ -19,6 +19,7 @@ package controllers;
 import java.util.List;
 import java.util.Map;
 
+import io.ebean.Database;
 import models.GuestBookEntry;
 import ninja.Result;
 import ninja.Results;
@@ -27,7 +28,6 @@ import ninja.params.Param;
 
 import org.slf4j.Logger;
 
-import io.ebean.EbeanServer;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -39,22 +39,22 @@ public class ApplicationController {
 
     private Lang lang;
 
-    private EbeanServer ebeanServer;
+    private Database ebeanDatabase;
 
     @Inject
     public ApplicationController(Lang lang,
                                  Logger logger,
-                                 EbeanServer ebeanServer) {
+                                 Database ebeanDatabase) {
         this.lang = lang;
         this.logger = logger;
-        this.ebeanServer = ebeanServer;
+        this.ebeanDatabase = ebeanDatabase;
 
     }
 
     public Result index() {
 
         // Get all guestbookentries now:
-        List<GuestBookEntry> guestBookEntries = ebeanServer.find(
+        List<GuestBookEntry> guestBookEntries = ebeanDatabase.find(
                 GuestBookEntry.class).findList();
         
         Map<String, Object> toRender = Maps.newHashMap();
@@ -70,7 +70,7 @@ public class ApplicationController {
                        @Param("content") String content) {
 
         GuestBookEntry guestbookEntry = new GuestBookEntry(email, content);
-        ebeanServer.save(guestbookEntry);
+        ebeanDatabase.save(guestbookEntry);
         
         // ... and redirect to main page
         return Results.redirect("/");

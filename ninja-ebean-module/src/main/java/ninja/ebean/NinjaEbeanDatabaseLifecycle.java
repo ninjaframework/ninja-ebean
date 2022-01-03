@@ -32,12 +32,12 @@ import static ninja.ebean.NinjaEbeanProperties.EBEAN_DDL_SEED_SQL;
 
 import static ninja.ebean.NinjaEbeanProperties.EBEAN_MODELS;
 
+import io.ebean.Database;
+import io.ebean.DatabaseFactory;
+import io.ebean.config.DatabaseConfig;
+import io.ebean.event.ShutdownManager;
 import ninja.utils.NinjaProperties;
 
-import io.ebean.EbeanServer;
-import io.ebean.EbeanServerFactory;
-import io.ebean.config.ServerConfig;
-import io.ebeaninternal.server.lib.ShutdownManager;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.ebean.datasource.DataSourceConfig;
@@ -55,14 +55,14 @@ import org.slf4j.Logger;
  * 
  */
 @Singleton
-public class NinjaEbeanServerLifecycle {
+public class NinjaEbeanDatabaseLifecycle {
 
-    private EbeanServer ebeanServer;
+    private Database database;
     private final NinjaProperties ninjaProperties;
     private final Logger logger;
 
     @Inject
-    public NinjaEbeanServerLifecycle(
+    public NinjaEbeanDatabaseLifecycle(
             Logger logger,
             NinjaProperties ninjaProperties) {
 
@@ -112,9 +112,9 @@ public class NinjaEbeanServerLifecycle {
         String ebeanDatasourceHeartbeatSql = ninjaProperties.getWithDefault(
                 EBEAN_DATASOURCE_HEARTBEAT_SQL, "select 1");
 
-        ServerConfig serverConfig = new ServerConfig();
-        serverConfig.setName(ebeanDatasourceName);
-        serverConfig.loadFromProperties();
+        DatabaseConfig databaseConfig = new DatabaseConfig();
+        databaseConfig.setName(ebeanDatasourceName);
+        databaseConfig.loadFromProperties();
         
         // Define DataSource parameters
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
@@ -126,16 +126,16 @@ public class NinjaEbeanServerLifecycle {
         dataSourceConfig.setMaxConnections(ebeanDatasourceMaxConnections);
         dataSourceConfig.setHeartbeatSql(ebeanDatasourceHeartbeatSql);
 
-        serverConfig.setDataSourceConfig(dataSourceConfig);
+        databaseConfig.setDataSourceConfig(dataSourceConfig);
 
         // set DDL options...
-        serverConfig.setDdlGenerate(ebeanDdlGenerate);
-        serverConfig.setDdlRun(ebeanDdlRun);
-        serverConfig.setDdlInitSql(ebeanDdlInitSql);
-        serverConfig.setDdlSeedSql(ebeanDdlSeedSql);
+        databaseConfig.setDdlGenerate(ebeanDdlGenerate);
+        databaseConfig.setDdlRun(ebeanDdlRun);
+        databaseConfig.setDdlInitSql(ebeanDdlInitSql);
+        databaseConfig.setDdlSeedSql(ebeanDdlSeedSql);
 
-        serverConfig.setDefaultServer(true);
-        serverConfig.setRegister(true);
+        databaseConfig.setDefaultServer(true);
+        databaseConfig.setRegister(true);
 
         // split models configuration into classes & packages
         Set<String> packageNames = new LinkedHashSet<>();
@@ -167,20 +167,19 @@ public class NinjaEbeanServerLifecycle {
         // if any packages were specified the reflections library MUST be available
         if (!packageNames.isEmpty()) {
             for (String packageName : packageNames) {
-                serverConfig.addPackage(packageName);
+                databaseConfig.addPackage(packageName);
             }
         }
 
         for (Class<?> entityClass : entityClasses) {
-            serverConfig.addClass(entityClass);
+            databaseConfig.addClass(entityClass);
         }
         
-        // create the EbeanServer instance
-        this.ebeanServer = this.createEbeanServer(serverConfig);
+        // Create the Database instance
+        this.database = this.createEbeanServer(databaseConfig);
         
         // Activate the Ebean shutdown manager (disconnects from db, shuts down all threads and so on)
-        ShutdownManager.touch();
-
+        ShutdownManager.shutdown();
     }
     
     /**
@@ -188,15 +187,20 @@ public class NinjaEbeanServerLifecycle {
      * last chance to modify the config in a subclass if you'd like to customize
      * the config further.
      * 
-     * @param serverConfig The prepared server config
+     * @param databaseConfig The prepared database config
      * @return The newly created Ebean server
      */
-    public EbeanServer createEbeanServer(ServerConfig serverConfig) {
-        return EbeanServerFactory.create(serverConfig);
+    public Database createEbeanServer(DatabaseConfig databaseConfig) {
+        return DatabaseFactory.create(databaseConfig);
     }
 
-    public EbeanServer getEbeanServer() {
-        return ebeanServer;
+    /**
+     * Returns the database.
+     *
+     * @return The database
+     */
+    public Database getDatabase() {
+        return this.database;
     }
 
 }

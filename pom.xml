@@ -60,8 +60,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <siteProjectVersion>${project.version}</siteProjectVersion>
-        <ninja.version>6.0.0</ninja.version>
-        <ebean.version>12.1.1</ebean.version>
+        <ninja.version>6.8.1</ninja.version>
+        <ebean.version>12.13.1</ebean.version>
     </properties>
 
     <!-- Fix version 1.6 of java compiler in all submodules: -->
