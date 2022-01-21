@@ -1,3 +1,8 @@
+3.0.2
+=====
+ 
+ * 2022-01-21 Upgrade to NinjaFramework 6.8.1 and Ebean 12.13.1
+
 3.0.1
 =====
 
