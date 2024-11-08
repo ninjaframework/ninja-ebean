@@ -16,27 +16,17 @@
 
 package ninja.ebean;
 
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.sql.SQLException;
-
-import ninja.lifecycle.Dispose;
-import ninja.lifecycle.Start;
 import ninja.utils.NinjaMode;
 import ninja.utils.NinjaProperties;
 import ninja.utils.NinjaPropertiesImpl;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 
-@RunWith(MockitoJUnitRunner.class)
 public class NinjaEbeanServerLifecycleTest {
 
     @Mock
@@ -55,7 +45,7 @@ public class NinjaEbeanServerLifecycleTest {
             // /////////////////////////////////////////////////////////////////////
             // Setup and spy on the properties
             // /////////////////////////////////////////////////////////////////////
-            NinjaProperties ninjaProperties = spy(new NinjaPropertiesImpl(NinjaMode.test));
+            NinjaProperties ninjaProperties = spy(NinjaProperties.class);
 
             NinjaEbeanServerLifecycle ninjaEbeanServerLifecycle = new NinjaEbeanServerLifecycle(
                     logger, ninjaProperties);

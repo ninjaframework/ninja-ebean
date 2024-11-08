@@ -22,7 +22,7 @@
     <groupId>org.ninjaframework</groupId>
     <artifactId>ninja-ebean</artifactId>
     <packaging>pom</packaging>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <url>http://www.ninjaframework.org</url>
     <name>${project.artifactId}</name>
     <description>Ebean (SQL framework) support for Ninja web framework</description>
@@ -49,9 +49,9 @@
 
 
     <modules>
-        <!-- the module is the core thing -->
         <module>ninja-ebean-module</module>
-        <!-- The demo is a ninja app acting as integration test and demo -->
+        <module>ninja-ebean15-module</module>
+        <!-- The demos are ninja apps acting as integration test and demo -->
         <module>ninja-ebean-demo</module>
     </modules>
 
@@ -60,8 +60,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <siteProjectVersion>${project.version}</siteProjectVersion>
-        <ninja.version>6.0.0</ninja.version>
+        <ninja.version>7.0.0</ninja.version>
         <ebean.version>12.1.1</ebean.version>
+        <ebean15.version>15.8.0</ebean15.version>
     </properties>
 
     <!-- Fix version 1.6 of java compiler in all submodules: -->
