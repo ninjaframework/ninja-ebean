@@ -32,7 +32,7 @@ More about Ebean: https://ebean.io/
 Overview
 --------
 
-This module works with the Ebean version 12.1.1+.
+This module works with the Ebean version 12 (if you use ninja-ebean-module) OR 14+ (if you use ninja-ebean15-module).
 
 If you need compatibility with earlier versions of Ebean please see [v2.0.0](https://github.com/ninjaframework/ninja-ebean/releases/tag/ninja-ebean-2.0.0) which supports a minimum Ebean version v3.2.5, and has also been tested with the later versions
 in the 6.x-8.x series.
@@ -42,6 +42,17 @@ in the 4.x series.
 
 NOTE: This module only supports a single (default) Ebean server.  Feel free to
 contribute code to the project if you need other features. Thanks!
+
+Upgrading from Ebean 12 to v14+
+-------------------------------
+
+In version 12 of ebean, your code will interact primarily with an ```EbeanServer```.  In version 14+, this class was
+deprecated and was renamed to ```Database```.  The methods are generally the same, although many previous deprecated
+methods were removed, so you may need to update your code.
+
+Also, and this is **very important**, your entity classes must use ```jakarta.persistence.Entity``` instead of the
+old ```javax.persistence.Entity```.  If you don't change to ```jakarta``` your entities will NOT be found and you'll
+end up with runtime errors.
 
 Setup
 -----
@@ -66,12 +77,20 @@ your project)
 Please note that <code>ebean.models</code> accepts a comma delimited list of
 both class names as well as packages (just make sure it ends with .*)
 
-2) Add the ninja-ebeans dependency to your pom.xml:
+2) For Ebean v12, add the ninja-ebean-module dependency to your pom.xml:
 
     <dependency>
         <groupId>org.ninjaframework</groupId>
         <artifactId>ninja-ebean-module</artifactId>
-        <version>3.0.0</version>
+        <version>4.0.0</version>
+    </dependency>
+
+Or for Ebean v14+, add the ninja-ebean15-module dependency to your pom.xml:
+
+    <dependency>
+        <groupId>org.ninjaframework</groupId>
+        <artifactId>ninja-ebean15-module</artifactId>
+        <version>4.0.0</version>
     </dependency>
 
 3) Add ebean's enhancer plugin to your pom.xml:
