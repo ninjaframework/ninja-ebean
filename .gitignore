@@ -14,3 +14,5 @@ target
 
 # no h2 databases
 *.db
+
+.idea

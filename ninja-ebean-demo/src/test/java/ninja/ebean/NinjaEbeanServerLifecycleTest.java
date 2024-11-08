@@ -19,18 +19,13 @@ package ninja.ebean;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
-import ninja.utils.NinjaMode;
 import ninja.utils.NinjaProperties;
-import ninja.utils.NinjaPropertiesImpl;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 
-@RunWith(MockitoJUnitRunner.class)
-public class NinjaEbeanDatabaseLifecycleTest {
+public class NinjaEbeanServerLifecycleTest {
 
     @Mock
     private Logger logger;
@@ -48,7 +43,7 @@ public class NinjaEbeanDatabaseLifecycleTest {
             // /////////////////////////////////////////////////////////////////////
             // Setup and spy on the properties
             // /////////////////////////////////////////////////////////////////////
-            NinjaProperties ninjaProperties = spy(NinjaPropertiesImpl.builder().withMode(NinjaMode.test).build());
+            NinjaProperties ninjaProperties = spy(NinjaProperties.class);
 
             NinjaEbeanDatabaseLifecycle ninjaEbeanDatabaseLifecycle = new NinjaEbeanDatabaseLifecycle(
                     logger, ninjaProperties);
