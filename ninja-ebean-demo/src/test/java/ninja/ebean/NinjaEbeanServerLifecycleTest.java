@@ -19,9 +19,7 @@ package ninja.ebean;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
-import ninja.utils.NinjaMode;
 import ninja.utils.NinjaProperties;
-import ninja.utils.NinjaPropertiesImpl;
 
 import org.junit.Test;
 import org.mockito.Mock;
@@ -47,7 +45,7 @@ public class NinjaEbeanServerLifecycleTest {
             // /////////////////////////////////////////////////////////////////////
             NinjaProperties ninjaProperties = spy(NinjaProperties.class);
 
-            NinjaEbeanServerLifecycle ninjaEbeanServerLifecycle = new NinjaEbeanServerLifecycle(
+            NinjaEbeanDatabaseLifecycle ninjaEbeanDatabaseLifecycle = new NinjaEbeanDatabaseLifecycle(
                     logger, ninjaProperties);
 
             // /////////////////////////////////////////////////////////////////////

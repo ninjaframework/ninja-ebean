@@ -3,6 +3,12 @@
  * For Java 17/21 support, you'll need to use Ebean 14+ (jjlauer)
  * Bump to Ninja 7.0.0 (jjlauer)
 
+## 3.0.2 - 2022-01-21
+ *  Upgrade to NinjaFramework 6.8.1 and Ebean 12.13.1
+
+## 3.0.1 - 2020-06-11
+ *  Use native ebean package finder vs. guava (works better on Java 11) (jjlauer)
+
 ## 3.0.0 - 2020-04-29
  * Bump to Ebean 12.1.1+ (jjlauer)
  * Bump to Ninja 6.0.0+ (jjlauer)

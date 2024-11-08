@@ -61,7 +61,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <siteProjectVersion>${project.version}</siteProjectVersion>
         <ninja.version>7.0.0</ninja.version>
-        <ebean.version>12.1.1</ebean.version>
+        <ebean.version>12.13.1</ebean.version>
         <ebean15.version>15.8.0</ebean15.version>
     </properties>
 
