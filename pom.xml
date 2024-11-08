@@ -50,9 +50,9 @@
 
     <modules>
         <module>ninja-ebean-module</module>
-        <module>ninja-ebean15-module</module>
         <!-- The demos are ninja apps acting as integration test and demo -->
         <module>ninja-ebean-demo</module>
+        <module>ninja-ebean15-module</module>
     </modules>
 
     <!-- pin encoding to utf-8 -->
